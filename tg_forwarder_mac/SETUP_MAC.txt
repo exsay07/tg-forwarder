@@ -1,0 +1,116 @@
+# How to Run Telegram Group Forwarder on macOS
+===============================================
+
+## Requirements
+
+- macOS 10.15 (Catalina) or later
+- Internet connection
+
+---
+
+## Step 1 — Install Python
+
+Open Terminal (press Cmd + Space, type "Terminal", press Enter) and run:
+
+    brew install python
+
+If you don't have Homebrew installed yet, first run this:
+
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+Then run brew install python again.
+
+Alternatively, download Python directly from https://www.python.org/downloads/
+
+---
+
+## Step 2 — Get Telegram API Keys
+
+1. Go to https://my.telegram.org/apps
+2. Log in with your Telegram phone number
+3. Click "Create application"
+4. Fill in any name and short name (e.g. "MyApp" / "myapp")
+5. Copy your API ID and API Hash — you will need them shortly
+
+---
+
+## Step 3 — Run the Forwarder
+
+1. Place all files (forwarder.py, start_mac.sh) in the same folder
+2. Open Terminal and navigate to that folder:
+
+       cd ~/Downloads/tg_forwarder
+
+   (replace the path with wherever you saved the files)
+
+3. Make the launcher executable (first time only):
+
+       chmod +x start_mac.sh
+
+4. Run the script:
+
+       ./start_mac.sh
+
+---
+
+## Step 4 — First Launch Setup
+
+The script will ask you for the following:
+
+1. API ID       — paste the number from my.telegram.org
+2. API Hash     — paste the string from my.telegram.org
+3. Phone number — enter your Telegram number with country code (e.g. +1...)
+4. Telegram code — check your Telegram app for the login code
+5. 2FA password — only if you have Two-Step Verification enabled
+
+After that, you will see a numbered list of all your groups and channels.
+Enter the number of the source group and the target group.
+
+The forwarder will start and automatically forward all new messages.
+
+---
+
+## Subsequent Launches
+
+Just run ./start_mac.sh again in the terminal.
+Your settings are saved in config.json — no need to re-enter them.
+
+---
+
+## Change Source / Target Group
+
+    python3 forwarder.py --reset
+
+---
+
+## Run in Background (optional)
+
+To keep the forwarder running after closing the terminal window:
+
+    nohup python3 forwarder.py > forwarder.log 2>&1 &
+
+All output/logs will be saved to forwarder.log.
+
+To check the logs:
+
+    cat forwarder.log
+
+To stop the forwarder:
+
+    pkill -f forwarder.py
+
+---
+
+## Troubleshooting
+
+Problem: "command not found: python3"
+Fix: Run brew install python, then try again
+
+Problem: "Permission denied" when running start_mac.sh
+Fix: Run chmod +x start_mac.sh first
+
+Problem: Script closes immediately after entering API credentials
+Fix: Make sure your API ID is a number (no spaces), and API Hash has no extra characters
+
+Problem: macOS asks to allow Terminal network access
+Fix: Click "Allow" — the script needs internet to connect to Telegram

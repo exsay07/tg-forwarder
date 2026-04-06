@@ -1,0 +1,94 @@
+# How to Run Telegram Group Forwarder on Windows
+================================================
+
+## Requirements
+
+- Windows 10 or later
+- Internet connection
+
+---
+
+## Step 1 — Install Python
+
+1. Go to https://www.python.org/downloads/
+2. Click "Download Python" (latest version)
+3. Run the installer
+4. ⚠️ IMPORTANT: Check the box "Add Python to PATH" before clicking Install
+5. Click "Install Now" and wait for it to finish
+
+---
+
+## Step 2 — Get Telegram API Keys
+
+1. Go to https://my.telegram.org/apps
+2. Log in with your Telegram phone number
+3. Click "Create application"
+4. Fill in any name and short name (e.g. "MyApp" / "myapp")
+5. Copy your API ID and API Hash — you will need them shortly
+
+---
+
+## Step 3 — Run the Forwarder
+
+1. Place all files (forwarder.py, start_windows.bat) in the same folder
+2. Double-click start_windows.bat
+3. A terminal window will open and the script will start automatically
+
+---
+
+## Step 4 — First Launch Setup
+
+The script will ask you for the following:
+
+1. API ID       — paste the number from my.telegram.org
+2. API Hash     — paste the string from my.telegram.org
+3. Phone number — enter your Telegram number with country code (e.g. +1...)
+4. Telegram code — check your Telegram app for the login code
+5. 2FA password — only if you have Two-Step Verification enabled
+
+After that, you will see a numbered list of all your groups and channels.
+Enter the number of the source group and the target group.
+
+The forwarder will start and automatically forward all new messages.
+
+---
+
+## Subsequent Launches
+
+Just double-click start_windows.bat again.
+Your settings are saved in config.json — no need to re-enter them.
+
+---
+
+## Change Source / Target Group
+
+Run the following command in the terminal:
+
+    python forwarder.py --reset
+
+---
+
+## Run in Background (optional)
+
+To keep the forwarder running without a visible terminal window:
+
+1. Press Win + R, type "cmd", press Enter
+2. Navigate to the folder:
+       cd C:\path\to\your\folder
+3. Run with pythonw (no window):
+       pythonw forwarder.py
+
+To stop it, open Task Manager (Ctrl+Shift+Esc) → find "Python" → End Task.
+
+---
+
+## Troubleshooting
+
+Problem: "Python is not installed" error
+Fix: Reinstall Python and make sure to check "Add Python to PATH"
+
+Problem: "pip is not recognized"
+Fix: Open a new terminal after installing Python, or reinstall with PATH option
+
+Problem: Script closes immediately after entering API credentials
+Fix: Make sure your API ID is a number (no spaces), and API Hash has no extra characters
